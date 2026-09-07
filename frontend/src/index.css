@@ -72,6 +72,20 @@ h4,
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+/* 100vh doesn't account for mobile Safari/Chrome's dynamic address bar, which can leave
+   bottom-fixed UI (the message composer) below the actually-visible viewport, requiring a
+   scroll to reach it. 100dvh tracks the real visible area; the plain vh rule stays first as
+   a fallback for browsers that don't understand dvh (an unsupported value is ignored,
+   leaving the prior declaration in effect). */
+.h-screen-safe {
+  height: 100vh;
+  height: 100dvh;
+}
+.min-h-screen-safe {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
 @keyframes pop-in {
   from {
     opacity: 0;

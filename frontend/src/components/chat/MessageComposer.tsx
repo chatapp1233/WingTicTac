@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { EmojiPicker } from './EmojiPicker'
+import { useBottomOverlayInset } from '../../hooks/useBottomOverlayInset'
 
 const TYPING_IDLE_MS = 1500
 
@@ -9,6 +10,7 @@ export function MessageComposer({ onSend, onTyping }: { onSend: (text: string) =
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const typingRef = useRef(false)
   const idleTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
+  const bottomOverlayInset = useBottomOverlayInset()
 
   useEffect(() => {
     const ta = textareaRef.current
@@ -59,7 +61,10 @@ export function MessageComposer({ onSend, onTyping }: { onSend: (text: string) =
   }
 
   return (
-    <div className="safe-bottom relative z-10 border-t border-border bg-bg/90 px-2.5 py-2.5 backdrop-blur-md sm:px-3">
+    <div
+      className="safe-bottom relative z-10 border-t border-border bg-bg/90 px-2.5 py-2.5 backdrop-blur-md sm:px-3"
+      style={bottomOverlayInset ? { marginBottom: bottomOverlayInset } : undefined}
+    >
       <div className="flex items-end gap-2">
         <div className="relative">
           <button

@@ -31,7 +31,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-10">
+    <div className="min-h-screen-safe flex flex-col items-center justify-center px-4 py-10">
       <Link to="/" className="mb-8">
         <Logo />
       </Link>

@@ -5,6 +5,7 @@ import { useChatStore } from '../../store/chatStore'
 import { Avatar } from '../common/Avatar'
 import { UserSearchOverlay } from '../chat/UserSearchOverlay'
 import { Logo } from '../../pages/LandingPage'
+import { useBottomOverlayInset } from '../../hooks/useBottomOverlayInset'
 
 const NAV_ITEMS = [
   { to: '/chats', label: 'Chats', icon: ChatIcon },
@@ -20,6 +21,7 @@ export function AuthenticatedShell() {
   const inConversation = useMatch('/chats/:conversationId')
   const [searchOpen, setSearchOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const bottomOverlayInset = useBottomOverlayInset()
 
   useEffect(() => {
     if (token) init(token)
@@ -36,7 +38,7 @@ export function AuthenticatedShell() {
   const showBottomNav = !inConversation
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="h-screen-safe flex flex-col overflow-hidden">
       <header className="safe-top sticky top-0 z-20 border-b border-border bg-bg/85 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <Logo />
@@ -98,7 +100,10 @@ export function AuthenticatedShell() {
       </main>
 
       {showBottomNav && (
-        <nav className="safe-bottom sticky bottom-0 z-20 border-t border-border bg-bg/90 backdrop-blur-md sm:hidden">
+        <nav
+          className="safe-bottom sticky bottom-0 z-20 border-t border-border bg-bg/90 backdrop-blur-md sm:hidden"
+          style={bottomOverlayInset ? { marginBottom: bottomOverlayInset } : undefined}
+        >
           <div className="flex items-center justify-around py-2">
             {NAV_ITEMS.map((item) => {
               const active = location.pathname.startsWith(item.to)

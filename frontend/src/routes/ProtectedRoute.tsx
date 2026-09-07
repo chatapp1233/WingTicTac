@@ -7,7 +7,7 @@ export function ProtectedRoute() {
 
   if (status === 'idle' || status === 'checking') {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="min-h-screen-safe flex items-center justify-center">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
       </div>
     )
