@@ -1,0 +1,21 @@
+# Zero-setup local profile: file-based H2 in PostgreSQL compatibility mode, so no
+# Docker/Postgres install is required to run the app. Migrations are plain, portable SQL,
+# so the exact same scripts run unmodified against real Postgres in the `postgres` profile.
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/chatapp;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration,classpath:db/dev-seed
+    baseline-on-migrate: true
+
+logging:
+  level:
+    com.chatapp.backend: DEBUG
